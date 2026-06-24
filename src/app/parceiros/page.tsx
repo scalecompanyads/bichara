@@ -1,6 +1,12 @@
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 
+
+export const metadata = {
+  title: "Nossos Parceiros e Rede de Confiança",
+  description: "Conheça os parceiros que fortalecem nossa atuação em Direito Previdenciário, unindo expertise para oferecer o melhor atendimento em todo o Brasil.",
+};
+
 export default function Parceiros() {
   return (
     <div className="flex flex-col min-h-screen -mt-[48px] md:-mt-[56px] bg-black">

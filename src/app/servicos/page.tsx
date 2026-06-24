@@ -9,6 +9,7 @@ import Image from "next/image";
 
 gsap.registerPlugin(ScrollTrigger);
 
+
 export default function Servicos() {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -60,7 +61,7 @@ export default function Servicos() {
     { 
       title: "Salário Maternidade", 
       icon: <Users className="text-gold" size={24} />,
-      image: "/service_loas.png",
+      image: "/service_maternidade.png",
       description: "Auxílio financeiro para mães trabalhadoras durante a licença-maternidade."
     },
     { 
@@ -75,13 +76,13 @@ export default function Servicos() {
     { 
       title: "Direito do Trabalho", 
       icon: <Briefcase className="text-gold" size={24} />,
-      image: "/service_aposentadoria.png",
+      image: "/homens-apertando-as-maos-em-um-acordo-comercial-bem-sucedido-gerado-pela-ia-825w.webp",
       description: "Defesa dos direitos trabalhistas, rescisões, horas extras e acidentes de trabalho."
     },
     { 
       title: "Direito Civil", 
       icon: <Home className="text-gold" size={24} />,
-      image: "/service_revisao.png",
+      image: "/1689009111_gavel-do-juiz-que-decide-em-papeis-de-assinatura-do-divorcio-do-casamento-conceito-de-advogado-8acfe06f-1920w.webp",
       description: "Apoio em processos de Usucapião, Inventário e contratos cíveis em geral."
     },
   ];
@@ -93,7 +94,7 @@ export default function Servicos() {
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <Image 
-            src="/Ambiente+4-1104w.webp" 
+            src="/hero_servicos.png" 
             alt="Escritório Advocacia Bichara" 
             fill
             quality={100}

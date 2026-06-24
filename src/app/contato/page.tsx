@@ -6,6 +6,7 @@ import Link from "next/link";
 import { slugify } from "@/data/filiais";
 import Image from "next/image";
 
+
 export default function Contato() {
   return (
     <div className="flex flex-col min-h-screen -mt-[48px] md:-mt-[56px]">
@@ -14,7 +15,7 @@ export default function Contato() {
       <section className="bg-dark pt-40 md:pt-48 pb-28 relative overflow-hidden flex items-center justify-center min-h-[40vh]">
         <div className="absolute inset-0 z-0">
           <Image 
-            src="/Ambiente+4-1104w.webp" 
+            src="/hero_contato.png" 
             alt="Ambiente Advocacia Bichara" 
             fill
             quality={100}

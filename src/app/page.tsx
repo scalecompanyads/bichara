@@ -5,9 +5,11 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Link from "next/link";
 import Image from "next/image";
-import { Shield, Users, Activity, FileText, ArrowRight } from "lucide-react";
+import { Shield, Users, Activity, FileText, ArrowRight, CalendarDays } from "lucide-react";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 gsap.registerPlugin(ScrollTrigger);
+
 
 export default function Home() {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -17,6 +19,7 @@ export default function Home() {
   useEffect(() => {
     // Hero Animations
     const ctx = gsap.context(() => {
+      // Hero Animations
       gsap.from(".hero-text", {
         y: 50,
         opacity: 0,
@@ -32,78 +35,99 @@ export default function Home() {
         delay: 0.8,
         ease: "back.out(1.7)",
       });
-    }, heroRef);
 
-    // Scroll Animations
-    gsap.from(".about-content", {
-      scrollTrigger: {
-        trigger: aboutRef.current,
-        start: "top 80%",
-      },
-      y: 40,
-      opacity: 0,
-      duration: 1,
-      ease: "power3.out",
-    });
-
-    gsap.from(".service-card-wrapper", {
-      scrollTrigger: {
-        trigger: servicesRef.current,
-        start: "top 75%",
-      },
-      y: 40,
-      opacity: 0,
-      duration: 0.8,
-      stagger: 0.15,
-      ease: "power2.out",
-    });
-
-    // Animate Counters
-    const counters = document.querySelectorAll('.stat-counter');
-    counters.forEach(counter => {
-      const target = parseInt(counter.getAttribute('data-target') || '0', 10);
-      gsap.to(counter, {
-        innerHTML: target,
-        duration: 2.5,
-        snap: { innerHTML: 1 },
-        ease: "power3.out",
+      // Scroll Animations
+      gsap.from(".about-content", {
         scrollTrigger: {
           trigger: aboutRef.current,
+          start: "top 80%",
+        },
+        y: 40,
+        opacity: 0,
+        duration: 1,
+        ease: "power3.out",
+      });
+
+      gsap.from(".service-card-wrapper", {
+        scrollTrigger: {
+          trigger: servicesRef.current,
           start: "top 75%",
-        }
+        },
+        y: 40,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.15,
+        ease: "power2.out",
+      });
+
+      // Animate Counters
+      const counters = document.querySelectorAll('.stat-counter');
+      counters.forEach(counter => {
+        const target = parseInt(counter.getAttribute('data-target') || '0', 10);
+        gsap.to(counter, {
+          innerHTML: target,
+          duration: 2.5,
+          snap: { innerHTML: 1 },
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: aboutRef.current,
+            start: "top 75%",
+          }
+        });
+      });
+
+      // Quote Reveal Animation
+      gsap.to(".quote-word", {
+        scrollTrigger: {
+          trigger: ".quote-text-container",
+          start: "top 80%",
+          end: "bottom 50%",
+          scrub: 1,
+        },
+        opacity: 1,
+        stagger: 0.1,
+        ease: "power1.inOut",
+      });
+
+      gsap.to(".quote-line", {
+        scrollTrigger: {
+          trigger: ".quote-text-container",
+          start: "top 60%",
+          end: "bottom 40%",
+          scrub: 1,
+        },
+        scaleX: 1,
+        transformOrigin: "left",
+        ease: "power2.out",
       });
     });
-
-    // Quote Reveal Animation
-    gsap.to(".quote-word", {
-      scrollTrigger: {
-        trigger: ".quote-text-container",
-        start: "top 80%",
-        end: "bottom 50%",
-        scrub: 1,
-      },
-      opacity: 1,
-      stagger: 0.1,
-      ease: "power1.inOut",
-    });
-
-    gsap.to(".quote-line", {
-      scrollTrigger: {
-        trigger: ".quote-text-container",
-        start: "top 60%",
-        end: "bottom 40%",
-        scrub: 1,
-      },
-      scaleX: 1,
-      transformOrigin: "left",
-      ease: "power2.out",
-    });
-
 
     return () => ctx.revert();
   }, []);
 
   const quoteWords = "Acreditamos que a tradição familiar de 30 anos aliada à excelência jurídica, molda um caminho seguro para seus direitos previdenciários.".split(" ");
+
+  const recentNews = [
+    {
+      title: "TRF1: Viúva que comprovou o trabalho rural do marido falecido tem direito à Pensão por Morte",
+      date: "18 de junho de 2026",
+      excerpt: "A Câmara Regional Previdenciária da Bahia (CRP/BA) determinou o pagamento do benefício após comprovação do trabalho no campo.",
+      slug: "trf1-viuva-pensao-por-morte",
+      image: "/1689009111_gavel-do-juiz-que-decide-em-papeis-de-assinatura-do-divorcio-do-casamento-conceito-de-advogado-8acfe06f-1920w.webp"
+    },
+    {
+      title: "TRF4: Agricultor com doença degenerativa garante benefício",
+      date: "10 de julho de 2023",
+      excerpt: "Trabalhador rural consegue o direito à aposentadoria por invalidez devido ao agravamento de sua condição de saúde.",
+      image: "/Ambiente+4-1104w.webp"
+    },
+    {
+      title: "TRF1 assegura permissão para Aposentadoria por Invalidez",
+      date: "10 de julho de 2023",
+      excerpt: "Justiça confirma que o segurado incapacitado permanentemente para o trabalho tem direito imediato ao benefício.",
+      image: "/bg_arquitetura.png"
+    },
+  ];
 
     const services = [
       {
@@ -137,18 +161,25 @@ export default function Home() {
       {/* Hero Section */}
       <section 
         ref={heroRef}
-        className="relative w-full min-h-screen flex items-center justify-center overflow-hidden bg-dark pt-20 -mt-[48px] md:-mt-[56px]"
+        className="relative w-full min-h-[100dvh] flex items-center justify-center overflow-hidden bg-dark pt-20 -mt-[48px] md:-mt-[56px]"
       >
-        {/* Video Background */}
-        <video 
-          autoPlay 
-          loop 
-          muted 
-          playsInline 
-          className="absolute inset-0 w-full h-full object-cover z-0 opacity-60"
-        >
-          <source src="https://vid.cdn-website.com/bced4a9a/videos/Nh91zW7R0Wc1qpqhwkQo_0807+%281%29-v.mp4" type="video/mp4" />
-        </video>
+        {/* Video Background - Fix para mobile Safari autoplay */}
+        <div 
+          className="absolute inset-0 w-full h-full z-0 opacity-60 pointer-events-none"
+          dangerouslySetInnerHTML={{
+            __html: `
+              <video 
+                autoplay 
+                loop 
+                muted 
+                playsinline 
+                class="w-full h-full object-cover"
+              >
+                <source src="https://vid.cdn-website.com/bced4a9a/videos/Nh91zW7R0Wc1qpqhwkQo_0807+%281%29-v.mp4" type="video/mp4" />
+              </video>
+            `
+          }}
+        />
         
         {/* Overlay to ensure text readability */}
         <div className="absolute inset-0 bg-black/50 z-0" />
@@ -208,6 +239,7 @@ export default function Home() {
                   src="/Ambiente+4-1104w.webp" 
                   alt="Sede da Advocacia Bichara" 
                   fill 
+                  sizes="(max-width: 1024px) 100vw, 50vw"
                   className="object-cover transition-transform duration-1000 group-hover:scale-105"
                 />
                 {/* Decorative architectural lines */}
@@ -276,6 +308,7 @@ export default function Home() {
               src="/1689009111_gavel-do-juiz-que-decide-em-papeis-de-assinatura-do-divorcio-do-casamento-conceito-de-advogado-8acfe06f-1920w.webp" 
               alt="Justiça" 
               fill 
+              sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover object-center"
             />
             {/* Gradient to fade the image into the background */}
@@ -342,6 +375,7 @@ export default function Home() {
                     src={service.image} 
                     alt={service.title} 
                     fill 
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                     className="object-cover transition-transform duration-700 ease-out group-hover:scale-105" 
                   />
                   {/* Subtle overlay */}
@@ -375,59 +409,29 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Founders / History Section */}
-      <section className="py-24 bg-dark-muted relative overflow-hidden">
-        {/* Subtle Decorative Elements */}
-        {/* Architectural lines instead of blurs */}
-        <div className="absolute top-0 left-12 w-px h-full bg-white/5 z-0 hidden lg:block"></div>
-        <div className="absolute top-0 right-12 w-px h-full bg-white/5 z-0 hidden lg:block"></div>
-
-        <div className="container mx-auto px-4 md:px-8 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
-            
-            {/* Image Column - Made much larger (7 columns) */}
-            <div className="lg:col-span-7 relative mt-8 lg:mt-0">
-              <div className="lg:sticky lg:top-32 lg:pb-12">
-                {/* Architectural Square Frame */}
-                <div className="bg-dark border border-gold/20 p-3 md:p-5 relative overflow-hidden group">
-                  <Image 
-                    src="/socios%20e%20parceiros/Site-922w.webp" 
-                    alt="Sócios Fundadores - Mônica Maria Pereira Bichara e Paulo Guimarães Bichara" 
-                    width={922}
-                    height={800}
-                    className="w-full h-auto transition-transform duration-1000 group-hover:scale-105"
-                  />
-                {/* Decorative architectural lines */}
-                <div className="absolute top-0 left-0 w-4 h-4 border-t border-l border-gold"></div>
-                <div className="absolute top-0 right-0 w-4 h-4 border-t border-r border-gold"></div>
-                <div className="absolute bottom-0 left-0 w-4 h-4 border-b border-l border-gold"></div>
-                <div className="absolute bottom-0 right-0 w-4 h-4 border-b border-r border-gold"></div>
-              </div>
-              
-              {/* Sleek Minimal Text Below */}
-              <div className="mt-6 pl-4 border-l border-gold/50">
-                <p className="text-gold font-bold text-[10px] tracking-widest uppercase mb-1">Fundadores (1989)</p>
-                <h3 className="text-light font-heading text-lg md:text-xl font-semibold leading-tight">
-                  Mônica Maria Pereira Bichara
-                  <span className="block text-gray-text text-sm font-normal mt-0.5">& Paulo Guimarães Bichara <span className="opacity-75 text-xs">(in memorian)</span></span>
-                </h3>
-              </div>
-              </div>
-            </div>
-
-            {/* Text Column - Made more compact (5 columns) */}
-            <div className="lg:col-span-5 lg:pl-4">
+      {/* Founders / History Section (Parallax Text Scroll) */}
+      <TextParallaxContent
+        imgUrl="/socios e parceiros/Site-922w.webp"
+        subheading="Nossa História"
+        heading="Mais de três décadas de excelência."
+      >
+        <section className="py-24 bg-dark-muted relative overflow-hidden">
+          <div className="absolute top-0 left-12 w-px h-full bg-white/5 z-0 hidden lg:block"></div>
+          <div className="absolute top-0 right-12 w-px h-full bg-white/5 z-0 hidden lg:block"></div>
+  
+          <div className="container mx-auto px-4 md:px-8 relative z-10">
+            <div className="max-w-4xl mx-auto">
               <div className="inline-flex items-center gap-4 mb-8">
                 <div className="w-12 h-px bg-gold"></div>
                 <p className="text-gold font-bold tracking-widest uppercase text-xs">
-                  Nossa História
+                  Nossa Trajetória
                 </p>
               </div>
               
               <h2 className="font-heading text-3xl md:text-4xl font-bold text-light mb-8 leading-tight">
-                Mais de três décadas de <span className="text-gold">excelência</span>.
+                Fundadores (1989)
               </h2>
-
+  
               <div className="space-y-6 text-gray-text text-sm md:text-base leading-relaxed font-light">
                 <p>
                   A <strong className="text-light font-medium">Advocacia Bichara</strong> iniciou suas atividades no ano de 1989, na cidade de Manoel Ribas - PR. Posteriormente, instalou-se em Laranjeiras do Sul - PR, e finalmente se alocou na cidade de Ivaiporã - PR, no ano de 1996, onde se encontra até hoje. 
@@ -435,9 +439,8 @@ export default function Home() {
                 <p>
                   A partir do ano de 2000 começou a atuar com maior ênfase no ramo do <strong className="text-light font-medium">Direito Previdenciário</strong>, dedicando-se em especial ao atendimento da população rural de todo o Vale do Ivaí.
                 </p>
-
-                {/* Minimalist Cities Text */}
-                <div className="pt-6 border-t border-dark relative">
+  
+                <div className="pt-6 border-t border-dark relative mt-12">
                   <p className="text-xs text-light/60 uppercase tracking-widest mb-3">Atuação Nacional</p>
                   <p className="text-sm">
                     Atualmente proporcionamos atendimento a diversas cidades da região central do Paraná, como <span className="text-gold">Barbosa Ferraz, Borrazópolis, Cândido de Abreu, Faxinal, Grandes Rios, Iporã, Iretama, Jandaia do Sul, Manoel Ribas, Nova Tebas, Pitanga, São Pedro e São João do Ivaí</span>.
@@ -448,8 +451,8 @@ export default function Home() {
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </TextParallaxContent>
 
       {/* Team / Professionals Section */}
       <section className="py-24 bg-light relative">
@@ -488,7 +491,7 @@ export default function Home() {
               src="/socios%20e%20parceiros/Site+(2)-1920w.webp" 
               alt="Dr. Paulo Bichara" 
               fill 
-              quality={100}
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 33vw, 20vw"
               className="object-cover transition-transform duration-1000 group-hover:scale-105"
             />
             {/* Hover Overlay */}
@@ -506,7 +509,7 @@ export default function Home() {
               src="/socios%20e%20parceiros/Dra-M-C3-B4nica-Bichara-1920w.webp" 
               alt="Dra. Monica Bichara" 
               fill 
-              quality={100}
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 33vw, 20vw"
               className="object-cover transition-transform duration-1000 group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
@@ -523,7 +526,7 @@ export default function Home() {
               src="/socios%20e%20parceiros/Dr.-Andr-C3-A9-Bichara---Site-dba8ddd1-a47e2204-fb54c488-70688053-1920w.webp" 
               alt="Dr. Andre Bichara" 
               fill 
-              quality={100}
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 33vw, 20vw"
               className="object-cover transition-transform duration-1000 group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
@@ -540,7 +543,7 @@ export default function Home() {
               src="/socios%20e%20parceiros/Dr.-Mois-C3-A9s-Bichara---Site-7a73121a-d7e95d6f-11f38e54-1920w.webp" 
               alt="Dr. Moisés Bichara" 
               fill 
-              quality={100}
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 33vw, 20vw"
               className="object-cover transition-transform duration-1000 group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
@@ -557,7 +560,7 @@ export default function Home() {
               src="/socios%20e%20parceiros/Dra.-Merabe-Bichara--Site-b9feab4d-1920w.webp" 
               alt="Dra. Merabe Bichara" 
               fill 
-              quality={100}
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 33vw, 20vw"
               className="object-cover transition-transform duration-1000 group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
@@ -580,7 +583,7 @@ export default function Home() {
               src="/homens-apertando-as-maos-em-um-acordo-comercial-bem-sucedido-gerado-pela-ia-825w.webp" 
               alt="Parceria e Colaboração" 
               fill
-              quality={100}
+              sizes="(max-width: 768px) 100vw, 66vw"
               className="object-cover object-center"
             />
             {/* Dark Overlay for contrast (Fade to Black) */}
@@ -618,6 +621,144 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Recent News Section */}
+      <section className="py-24 bg-light relative overflow-hidden">
+        <div className="absolute inset-0 opacity-[0.08] z-0 mix-blend-multiply pointer-events-none">
+          <Image src="/bg_arquitetura.png" alt="Arquitetura Background" fill className="object-cover" />
+        </div>
+
+        <div className="container mx-auto px-4 md:px-8 relative z-10">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-16">
+            <div>
+              <p className="text-gold font-bold tracking-widest uppercase text-sm mb-3">
+                Atualizações e Decisões
+              </p>
+              <h2 className="font-heading text-4xl md:text-5xl font-bold text-dark">
+                Notícias Recentes
+              </h2>
+            </div>
+            <Link 
+              href="/noticias"
+              className="mt-8 md:mt-0 inline-flex items-center gap-2 text-dark font-bold hover:text-gold transition-colors group pb-2 border-b-2 border-transparent hover:border-gold"
+            >
+              Ver todas as notícias
+              <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {recentNews.map((item, idx) => (
+              <article key={idx} className="bg-white border border-dark/10 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 group flex flex-col h-full rounded-none relative">
+                <div className="relative w-full aspect-[16/10] overflow-hidden bg-dark">
+                  <Image 
+                    src={item.image} 
+                    alt={item.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    className="object-cover transition-transform duration-1000 group-hover:scale-105 opacity-90 group-hover:opacity-100"
+                  />
+                  <div className="absolute inset-0 bg-dark/10 group-hover:bg-transparent transition-colors duration-500"></div>
+                </div>
+
+                <div className="p-8 flex-grow flex flex-col relative z-10">
+                  <div className="flex items-center gap-2 text-gold text-xs font-bold tracking-widest uppercase mb-4">
+                    <CalendarDays size={16} />
+                    <span>{item.date}</span>
+                  </div>
+                  <h2 className="font-heading text-xl font-bold text-dark mb-4 group-hover:text-gold transition-colors line-clamp-2">
+                    {item.title}
+                  </h2>
+                  <p className="text-dark/70 text-sm leading-relaxed mb-8 font-light line-clamp-3">
+                    {item.excerpt}
+                  </p>
+                  <div className="mt-auto pt-6 border-t border-dark/10">
+                    <a href={item.slug ? `/noticias/${item.slug}` : "#"} className="text-gold font-bold text-xs uppercase tracking-[0.2em] inline-flex items-center gap-2 group-hover:text-dark transition-colors">
+                      Ler Artigo <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                    </a>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
     </>
   );
 }
+
+const IMG_PADDING = 0;
+
+const TextParallaxContent = ({ imgUrl, subheading, heading, children }: { imgUrl: string, subheading: string, heading: string, children: React.ReactNode }) => {
+  return (
+    <div>
+      <div className="relative h-[150vh]">
+        <StickyImage imgUrl={imgUrl} />
+        <OverlayCopy heading={heading} subheading={subheading} />
+      </div>
+      {children}
+    </div>
+  );
+};
+
+const StickyImage = ({ imgUrl }: { imgUrl: string }) => {
+  const targetRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: targetRef,
+    offset: ["end end", "end start"],
+  });
+
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.85]);
+  const opacity = useTransform(scrollYProgress, [0, 1], [1, 0]);
+
+  return (
+    <motion.div
+      style={{
+        backgroundImage: `url('${imgUrl}')`,
+        backgroundSize: "cover",
+        backgroundPosition: "top center",
+        height: `100vh`,
+        scale,
+        willChange: "transform",
+        transformStyle: "preserve-3d"
+      }}
+      ref={targetRef}
+      className="sticky top-0 z-0 overflow-hidden"
+    >
+      <motion.div
+        className="absolute inset-0 bg-black/60"
+        style={{
+          opacity,
+        }}
+      />
+    </motion.div>
+  );
+};
+
+const OverlayCopy = ({ subheading, heading }: { subheading: string, heading: string }) => {
+  const targetRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: targetRef,
+    offset: ["start end", "end start"],
+  });
+
+  const y = useTransform(scrollYProgress, [0, 1], [250, -250]);
+  const opacity = useTransform(scrollYProgress, [0.25, 0.5, 0.75], [0, 1, 0]);
+
+  return (
+    <motion.div
+      style={{
+        y,
+        opacity,
+        willChange: "transform, opacity"
+      }}
+      ref={targetRef}
+      className="absolute left-0 top-0 flex h-screen w-full flex-col items-center justify-center text-white px-4 text-center pointer-events-none"
+    >
+      <p className="mb-4 text-gold font-bold text-xs md:text-sm tracking-[0.2em] uppercase">
+        {subheading}
+      </p>
+      <p className="font-heading text-4xl md:text-6xl font-bold leading-tight max-w-3xl drop-shadow-2xl">{heading}</p>
+    </motion.div>
+  );
+};

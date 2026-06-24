@@ -1,6 +1,12 @@
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 
+
+export const metadata = {
+  title: "Trabalhe Conosco | Vagas para Advogados",
+  description: "Faça parte de um dos escritórios de Direito Previdenciário mais tradicionais do Brasil. Envie seu currículo e venha crescer com a Advocacia Bichara.",
+};
+
 export default function TrabalheConosco() {
   return (
     <div className="flex flex-col min-h-screen -mt-[48px] md:-mt-[56px]">
@@ -9,7 +15,7 @@ export default function TrabalheConosco() {
         {/* Architectural Background */}
         <div className="absolute inset-0 z-0">
           <Image 
-            src="/Ambiente+4-1104w.webp" 
+            src="/hero_trabalhe.png" 
             alt="Escritório Advocacia Bichara" 
             fill
             quality={100}

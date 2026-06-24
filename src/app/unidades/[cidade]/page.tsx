@@ -16,8 +16,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   return {
-    title: `Advogado Previdenciário em ${filial.cidade} - ${filial.uf} | Advocacia Bichara`,
-    description: `Procurando advogado especialista em aposentadorias e benefícios do INSS em ${filial.cidade}? Atendimento humanizado e presencial.`,
+    title: `Advogado Previdenciário em ${filial.cidade}, ${filial.uf} | Especialistas INSS`,
+    description: `Precisa de advogado do INSS em ${filial.cidade}? A Advocacia Bichara é especialista em aposentadorias e benefícios. Agende seu atendimento presencial!`,
   };
 }
 

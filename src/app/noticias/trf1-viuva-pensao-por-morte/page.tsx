@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, CalendarDays } from "lucide-react";
 
+
 export default function Noticia() {
   return (
     <div className="bg-light min-h-screen pt-24 pb-20">

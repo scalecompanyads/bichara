@@ -8,6 +8,7 @@ import Image from "next/image";
 
 gsap.registerPlugin(ScrollTrigger);
 
+
 export default function Equipe() {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -50,18 +51,24 @@ export default function Equipe() {
   }, []);
 
   const socios = [
-    { name: "Dr. Paulo Bichara", oab: "OAB/PR 85.283", role: "Sócio Administrador" },
-    { name: "Dra. Mônica Bichara", oab: "OAB/PR 16.131", role: "Sócia Fundadora" },
-    { name: "Dr. André Bichara", oab: "OAB/PR 69.751", role: "Sócio" },
-    { name: "Dr. Moisés Bichara", oab: "OAB/PR 113.984", role: "Sócio" },
-    { name: "Dra. Merabe Bichara", oab: "OAB/PR 102.254", role: "Sócia" },
+    { name: "Dr. Paulo Bichara", oab: "OAB/PR 85.283", role: "Sócio Administrador", image: "/socios e parceiros/Site+(2)-1920w.webp" },
+    { name: "Dra. Mônica Bichara", oab: "OAB/PR 16.131", role: "Sócia Fundadora", image: "/socios e parceiros/Dra-M-C3-B4nica-Bichara-1920w.webp" },
+    { name: "Dr. André Bichara", oab: "OAB/PR 69.751", role: "Sócio", image: "/socios e parceiros/Dr.-Andr-C3-A9-Bichara---Site-dba8ddd1-a47e2204-fb54c488-70688053-1920w.webp" },
+    { name: "Dr. Moisés Bichara", oab: "OAB/PR 113.984", role: "Sócio", image: "/socios e parceiros/Dr.-Mois-C3-A9s-Bichara---Site-7a73121a-d7e95d6f-11f38e54-1920w.webp" },
+    { name: "Dra. Merabe Bichara", oab: "OAB/PR 102.254", role: "Sócia", image: "/socios e parceiros/Dra.-Merabe-Bichara--Site-b9feab4d-1920w.webp" },
   ];
 
   const associados = [
-    { name: "Dra. Elizabeth" },
-    { name: "Dr. J. Sargentin" },
-    { name: "Dra. Daiane Bugni" },
-    { name: "Dr. João Marcos" },
+    { name: "Dra. Elizabeth", image: "/socios e parceiros/Dra.-Elizabeth-1920w.webp" },
+    { name: "Dr. J. Sargentin", image: "/socios e parceiros/Dr.-J.-Sargentin-1920w.webp" },
+    { name: "Dra. Daiane Bugni", image: "/socios e parceiros/Dra.+Daiane-1920w.webp" },
+    { name: "Dr. João Marcos", image: "/socios e parceiros/Dr.+João+Marcos-1920w.webp" },
+    { name: "Dr. Marcelo Morais", image: "/socios e parceiros/Dr.-Marcelo-Morais-ec9ccbc9-1920w.webp" },
+    { name: "Dr. Marcos Rogério", image: "/socios e parceiros/Dr.-Marcos-Rog-C3-A9rio-0a99694f-1920w.webp" },
+    { name: "Dra. J. Hort", image: "/socios e parceiros/Dra.+J.+Hort-9a63290b-1920w.webp" },
+    { name: "Dra. Isabelly", image: "/socios e parceiros/Dra.-Isabelly-1920w.webp" },
+    { name: "Dra. Jéssica", image: "/socios e parceiros/Dra.-J-C3-A9ssica-0a458e16-4e45df1a-1920w.webp" },
+    { name: "Dra. Marina", image: "/socios e parceiros/Dra.-Marina-1920w.webp" },
   ];
 
   return (
@@ -71,7 +78,7 @@ export default function Equipe() {
       <section className="bg-dark pt-40 md:pt-48 pb-28 relative overflow-hidden flex items-center justify-center min-h-[40vh]">
         <div className="absolute inset-0 z-0">
           <Image 
-            src="/Ambiente+4-1104w.webp" 
+            src="/hero_equipe.png" 
             alt="Ambiente Advocacia Bichara" 
             fill
             quality={100}
@@ -99,38 +106,41 @@ export default function Equipe() {
       </section>
 
       {/* Sócios Section - Light */}
-      <section className="py-24 bg-light relative overflow-hidden team-grid">
-        <div className="absolute inset-0 opacity-[0.08] z-0 mix-blend-multiply pointer-events-none">
-          <Image src="/bg_arquitetura.png" alt="Arquitetura Background" fill className="object-cover" />
-        </div>
-
-        <div className="container mx-auto px-4 md:px-8 relative z-10 max-w-6xl">
-          <div className="flex items-center gap-4 mb-16 justify-center">
+      <section className="pt-24 bg-light relative overflow-hidden team-grid">
+        <div className="container mx-auto px-4 md:px-8 relative z-10 max-w-6xl mb-16">
+          <div className="flex items-center gap-4 justify-center">
             <div className="w-12 h-[2px] bg-gold"></div>
             <h2 className="header-anim font-heading text-3xl font-bold text-dark uppercase tracking-[0.1em]">
               Quadro de Sócios
             </h2>
             <div className="w-12 h-[2px] bg-gold"></div>
           </div>
+        </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+        {/* Full-width Image Gallery */}
+        <div className="w-full flex flex-wrap">
             {socios.map((socio, idx) => (
-              <div key={idx} className="member-card">
-                <div className="group bg-white p-10 flex flex-col items-center text-center border border-dark/10 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 h-full rounded-none">
-                  <div className="w-24 h-24 mb-6 relative">
-                    <div className="absolute inset-0 border border-gold/30 rounded-none transform rotate-45 group-hover:rotate-90 transition-transform duration-700"></div>
-                    <div className="absolute inset-0 bg-dark-muted rounded-none flex items-center justify-center">
-                      <UserCircle size={40} className="text-gold" />
+              <div key={idx} className="member-card w-full sm:w-1/2 lg:w-1/3 xl:w-1/5 group relative overflow-hidden aspect-[3/4] cursor-default bg-dark">
+                  <Image 
+                    src={socio.image} 
+                    alt={socio.name} 
+                    fill 
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 33vw, 20vw"
+                    className="object-cover object-top transition-transform duration-1000 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8 z-20">
+                    <div className="transform translate-y-8 group-hover:translate-y-0 transition-transform duration-500">
+                      <h4 className="font-heading font-bold text-light text-2xl mb-1">{socio.name}</h4>
+                      <p className="text-gold font-bold tracking-widest text-xs uppercase mb-2">{socio.role}</p>
+                      <p className="text-white/60 text-xs italic">{socio.oab}</p>
                     </div>
                   </div>
-                  <h3 className="font-heading text-2xl font-bold text-dark mb-2 group-hover:text-gold transition-colors">{socio.name}</h3>
-                  <div className="w-8 h-1 bg-gold mb-4 transition-all duration-300 group-hover:w-16"></div>
-                  <p className="text-dark/70 uppercase tracking-widest text-xs font-bold mb-2">{socio.role}</p>
-                  <p className="text-dark/50 text-sm italic">{socio.oab}</p>
-                </div>
+                  {/* Default State Overlay */}
+                  <div className="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black/80 to-transparent group-hover:opacity-0 transition-opacity duration-300 z-10">
+                     <h4 className="font-heading font-bold text-light text-xl drop-shadow-md">{socio.name}</h4>
+                  </div>
               </div>
             ))}
-          </div>
         </div>
       </section>
 
@@ -148,10 +158,21 @@ export default function Equipe() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {associados.map((associado, idx) => (
               <div key={idx} className="assoc-card">
-                <div className="group bg-dark border border-white/5 p-8 flex flex-col items-center text-center hover:border-gold/30 transition-all duration-500 h-full rounded-none">
-                  <UserCircle size={32} className="text-gold/50 mb-4 group-hover:text-gold transition-colors" />
-                  <h3 className="font-heading text-lg font-bold text-light mb-2">{associado.name}</h3>
-                  <p className="text-gold text-xs uppercase tracking-widest">Associado(a)</p>
+                <div className="group relative overflow-hidden aspect-[3/4] cursor-default bg-dark w-full border border-white/10 shadow-lg">
+                  <Image 
+                    src={associado.image} 
+                    alt={associado.name} 
+                    fill 
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                    className="object-cover object-top transition-transform duration-1000 group-hover:scale-105 opacity-80 group-hover:opacity-100"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent flex flex-col justify-end p-6">
+                    <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                      <h4 className="font-heading font-bold text-light text-xl mb-1">{associado.name}</h4>
+                      <div className="w-8 h-px bg-gold mb-2 transition-all duration-300 group-hover:w-12"></div>
+                      <p className="text-gold font-bold tracking-widest text-[10px] uppercase">Advogado(a) Associado(a)</p>
+                    </div>
+                  </div>
                 </div>
               </div>
             ))}

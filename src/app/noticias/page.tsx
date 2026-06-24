@@ -3,6 +3,7 @@
 import { CalendarDays, ArrowRight } from "lucide-react";
 import Image from "next/image";
 
+
 export default function Noticias() {
   const news = [
     {
@@ -33,7 +34,7 @@ export default function Noticias() {
       <section className="bg-dark pt-40 md:pt-48 pb-28 relative overflow-hidden flex items-center justify-center min-h-[40vh]">
         <div className="absolute inset-0 z-0">
           <Image 
-            src="/Ambiente+4-1104w.webp" 
+            src="/hero_noticias.png" 
             alt="Ambiente Advocacia Bichara" 
             fill
             quality={100}

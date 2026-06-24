@@ -29,7 +29,8 @@ export default function Header() {
   }, []);
 
   return (
-    <header
+    <>
+      <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 border-b ${
         scrolled ? "bg-dark/95 backdrop-blur-md border-white/5 py-4 shadow-lg" : "bg-transparent border-transparent py-6"
       }`}
@@ -62,21 +63,26 @@ export default function Header() {
 
         {/* Mobile Toggle */}
         <button
-          className="xl:hidden text-light p-2"
-          onClick={() => setIsOpen(!isOpen)}
+          className="xl:hidden text-light p-3 -m-3 relative z-[999] cursor-pointer touch-manipulation"
+          onClick={(e) => {
+            e.preventDefault();
+            setIsOpen(!isOpen);
+          }}
           aria-label="Toggle menu"
+          aria-expanded={isOpen}
         >
-          {isOpen ? <X size={28} /> : <Menu size={28} />}
+          {isOpen ? <X size={28} className="pointer-events-none" /> : <Menu size={28} className="pointer-events-none" />}
         </button>
       </div>
+    </header>
 
       {/* Mobile Nav */}
       <div
-        className={`xl:hidden fixed inset-0 top-[76px] bg-dark/95 backdrop-blur-lg border-t border-white/5 transition-transform duration-500 ease-in-out ${
-          isOpen ? "translate-x-0" : "translate-x-full"
+        className={`xl:hidden fixed inset-0 z-40 bg-dark/95 backdrop-blur-lg border-t border-white/5 transition-all duration-500 ease-in-out ${
+          isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
       >
-        <nav className="flex flex-col p-8 gap-6 h-full overflow-y-auto">
+        <nav className="flex flex-col p-8 gap-6 h-full overflow-y-auto pt-[100px] pb-24">
           {navLinks.map((link) => (
             <Link
               key={link.name}
@@ -98,6 +104,6 @@ export default function Header() {
           </a>
         </nav>
       </div>
-    </header>
+    </>
   );
 }
