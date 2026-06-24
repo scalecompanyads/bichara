@@ -51,7 +51,7 @@ export default function Equipe() {
   }, []);
 
   const socios = [
-    { name: "Dr. Paulo Bichara", oab: "OAB/PR 85.283", role: "Sócio Administrador", image: "/socios e parceiros/Site+(2)-1920w.webp" },
+    { name: "Dr. Paulo Bichara", oab: "OAB/PR 85.283", role: "Sócio Administrador", image: "/socios e parceiros/paulo-bichara.webp" },
     { name: "Dra. Mônica Bichara", oab: "OAB/PR 16.131", role: "Sócia Fundadora", image: "/socios e parceiros/Dra-M-C3-B4nica-Bichara-1920w.webp" },
     { name: "Dr. André Bichara", oab: "OAB/PR 69.751", role: "Sócio", image: "/socios e parceiros/Dr.-Andr-C3-A9-Bichara---Site-dba8ddd1-a47e2204-fb54c488-70688053-1920w.webp" },
     { name: "Dr. Moisés Bichara", oab: "OAB/PR 113.984", role: "Sócio", image: "/socios e parceiros/Dr.-Mois-C3-A9s-Bichara---Site-7a73121a-d7e95d6f-11f38e54-1920w.webp" },

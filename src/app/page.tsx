@@ -277,19 +277,19 @@ export default function Home() {
               </div>
 
               {/* Stats Highlights */}
-              <div className="mt-12 flex flex-col sm:flex-row items-start sm:items-center gap-8">
+              <div className="mt-12 flex flex-row items-center gap-6 sm:gap-8 justify-start">
                 <div className="flex flex-col">
-                  <span className="text-4xl font-bold text-light mb-1">
+                  <span className="text-3xl sm:text-4xl font-bold text-light mb-1">
                     +<span className="stat-counter" data-target="30">0</span>
                   </span>
-                  <span className="text-xs text-gold uppercase tracking-[0.2em] font-bold mt-2">Anos de Tradição</span>
+                  <span className="text-[10px] sm:text-xs text-gold uppercase tracking-[0.2em] font-bold mt-2">Anos de Tradição</span>
                 </div>
-                <div className="hidden sm:block w-px h-16 bg-white/10"></div>
+                <div className="w-px h-12 sm:h-16 bg-white/10"></div>
                 <div className="flex flex-col">
-                  <span className="text-5xl font-light text-light font-heading">
+                  <span className="text-4xl sm:text-5xl font-light text-light font-heading">
                     <span className="stat-counter" data-target="100">0</span>%
                   </span>
-                  <span className="text-xs text-gold uppercase tracking-[0.2em] font-bold mt-2">Atendimento Nacional</span>
+                  <span className="text-[10px] sm:text-xs text-gold uppercase tracking-[0.2em] font-bold mt-2">Atendimento Nacional</span>
                 </div>
               </div>
             </div>
@@ -488,7 +488,7 @@ export default function Home() {
           {/* Dr. Paulo Bichara */}
           <div className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/5 group relative overflow-hidden aspect-[3/4] cursor-default bg-dark">
             <Image 
-              src="/socios%20e%20parceiros/Site+(2)-1920w.webp" 
+              src="/socios%20e%20parceiros/paulo-bichara.webp" 
               alt="Dr. Paulo Bichara" 
               fill 
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 33vw, 20vw"
